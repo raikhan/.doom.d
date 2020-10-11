@@ -16,6 +16,13 @@
 ;; Start with maximized window
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;; My usual magit binding
+(use-package! magit
+  :bind
+  ("C-x g" . magit-status)
+)
+
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -28,12 +35,12 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(doom/increase-font-size 2)
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(doom/increase-font-size 2)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -142,6 +149,8 @@
 	)
 )
 
+;;; Editing changes
+
 ;; "When several buffers visit identically-named files,
 ;; Emacs must give the buffers distinct names. The usual method
 ;; for making buffer names unique adds ‘<2>’, ‘<3>’, etc. to the end
@@ -156,3 +165,45 @@
 
 ;; comment / uncomment code
 (global-set-key (kbd "C-S-d") 'comment-or-uncomment-region)
+
+
+;; My company preferences
+(use-package! company
+  :config
+  (setq company-tooltip-limit 20)                      ; bigger popup window
+  (setq company-tooltip-align-annotations 't)          ; align annotations to the right tooltip border
+  (setq company-idle-delay .2)                         ; decrease delay before autocompletion popup shows
+  (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
+  (setq company-minimum-prefix-length 1)               ; show options after second character
+)
+
+;; Turn on cua-mode for advanced rectangle selection
+(setq cua-rectangle-mark-key (kbd "C-x SPC"))
+(cua-selection-mode t)
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+
+;; Don't use hard tabs
+(setq-default indent-tabs-mode nil)
+
+;; function to replace tabs in a buffer with 2 spaces
+(defun die-tabs ()
+  (interactive)
+  (set-variable 'tab-width 2)
+  (mark-whole-buffer)
+  (untabify (region-beginning) (region-end))
+  (keyboard-quit))
+
+
+(defun toggle-comment-on-line ()
+  "comment or uncomment current line"
+  (interactive)
+  (comment-or-uncomment-region (line-beginning-position) (line-end-position)))
+(global-set-key (kbd "C-;") 'toggle-comment-on-line)
+
+
+;; use special tool for indented blocks syntax
+(use-package! indent-tools
+  :bind
+  ("C-c c n" .  indent-tools-hydra/body)
+  )

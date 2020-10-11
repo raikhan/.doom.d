@@ -51,3 +51,4 @@
 
 
 (package! helm-swoop)
+(package! indent-tools)

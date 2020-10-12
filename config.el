@@ -127,26 +127,40 @@
 )
 
 
-;; Helm-swoop setup
-(use-package! helm-swoop
+;; NOT USING SWOOP - TRYNG SWIPER WHICH COMES WITH DOOM
+;; ;; Helm-swoop setup
+;; (use-package! helm-swoop
+;;   :bind
+;;   (("M-i" . helm-swoop)
+;;   ;; ("M-S-i" . helm-swoop-back-to-last-point) ; need to decide on a new keyboard shortcut, this one does not work
+;;   ("C-c M-i" . helm-multi-swoop)
+;;   ("C-x M-i" . helm-multi-swoop-all)
+;;   :map isearch-mode-map
+;;   ("M-i" . helm-swoop-from-isearch)  ; When doing isearch, hand the word over to helm-swoop
+;;   )
+;;   :config
+;;   (setq helm-multi-swoop-edit-save                                    t  ; Save buffer when helm-multi-swoop-edit complete
+;; 	helm-swoop-split-with-multiple-windows                      nil  ; If this value is t, split window inside the current window
+;; 	helm-swoop-split-direction             'split-window-vertically  ; Split direcion. 'split-window-vertically or 'split-window-horizontally
+;; 	helm-swoop-speed-or-color                                   nil  ; If nil, you can slightly boost invoke speed in exchange for text color
+;; 	helm-swoop-move-to-line-cycle                                 t  ; Go to the opposite side of line from the end or beginning of line
+;; 	helm-swoop-use-line-number-face                               t  ; Optional face for line numbers
+;; 	helm-swoop-use-fuzzy-match                                    t  ; Fuzzy matching
+;; 	)
+;; )
+
+(use-package! swiper
   :bind
-  (("M-i" . helm-swoop)
-  ;; ("M-S-i" . helm-swoop-back-to-last-point) ; need to decide on a new keyboard shortcut, this one does not work
-  ("C-c M-i" . helm-multi-swoop)
-  ("C-x M-i" . helm-multi-swoop-all)
+  (("M-i" . swiper-thing-at-point)
+   ("C-s" . swiper-isearch)
+   ("C-r" . swiper-isearch-backward)
+   :map swiper-isearch-map
+   ("C-r" . ivy-previous-line)
   :map isearch-mode-map
-  ("M-i" . helm-swoop-from-isearch)  ; When doing isearch, hand the word over to helm-swoop
+  ("M-i" . swiper-from-isearch)  ; When doing isearch, hand the word over to swiper
   )
-  :config
-  (setq helm-multi-swoop-edit-save                                    t  ; Save buffer when helm-multi-swoop-edit complete
-	helm-swoop-split-with-multiple-windows                      nil  ; If this value is t, split window inside the current window
-	helm-swoop-split-direction             'split-window-vertically  ; Split direcion. 'split-window-vertically or 'split-window-horizontally
-	helm-swoop-speed-or-color                                   nil  ; If nil, you can slightly boost invoke speed in exchange for text color
-	helm-swoop-move-to-line-cycle                                 t  ; Go to the opposite side of line from the end or beginning of line
-	helm-swoop-use-line-number-face                               t  ; Optional face for line numbers
-	helm-swoop-use-fuzzy-match                                    t  ; Fuzzy matching
-	)
 )
+
 
 ;;; Editing changes
 

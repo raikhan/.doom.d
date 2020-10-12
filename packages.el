@@ -50,5 +50,5 @@
 ;(unpin! t)
 
 
-(package! helm-swoop)
+;; (package! helm-swoop)
 (package! indent-tools)

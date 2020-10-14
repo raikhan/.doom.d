@@ -90,29 +90,30 @@
 (use-package! helm
   :bind (("C-c SPC" . helm-all-mark-rings)          ; helm menu for mark ring
          ("C-x b" . helm-mini)
-	 :map helm-map
-	 ("<tab>" . helm-execute-persistent-action) ; rebind tab to run persistent action
-	 ("C-i" . helm-execute-persistent-action)   ; make TAB work in terminal
-	 ("C-z" . helm-select-action)               ; list actions using C-z
-	 )
+         ("M-y" . helm-show-kill-ring)
+         :map helm-map
+         ("<tab>" . helm-execute-persistent-action) ; rebind tab to run persistent action
+         ("C-i" . helm-execute-persistent-action)   ; make TAB work in terminal
+         ("C-z" . helm-select-action)               ; list actions using C-z
+         )
   :config
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
   (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-	helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-	helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-	helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-	helm-ff-file-name-history-use-recentf t
-	helm-echo-input-in-header-line        t
-	helm-autoresize-max-height            0
-	helm-autoresize-min-height           30
-	helm-M-x-fuzzy-match                  t ; fuzzy match all the things
-	helm-buffers-fuzzy-matching           t
-	helm-recentf-fuzzy-match              t
-	helm-semantic-fuzzy-match             t
+        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+        helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+        helm-ff-file-name-history-use-recentf t
+        helm-echo-input-in-header-line        t
+        helm-autoresize-max-height            0
+        helm-autoresize-min-height           30
+        helm-M-x-fuzzy-match                  t ; fuzzy match all the things
+        helm-buffers-fuzzy-matching           t
+        helm-recentf-fuzzy-match              t
+        helm-semantic-fuzzy-match             t
         helm-imenu-fuzzy-match                t
-	mark-ring-max                         3 ; use a smaller size of the mark ring so it is more easy to manage with helm
-	)
+        mark-ring-max                         3 ; use a smaller size of the mark ring so it is more easy to manage with helm
+        )
 )
 
 (use-package! helm-config
@@ -161,6 +162,46 @@
   ("M-i" . swiper-from-isearch)  ; When doing isearch, hand the word over to swiper
   )
 )
+
+;; Automatically search the web using s from: https://github.com/zquestz/s
+(defun web-search-using-s (searchq &optional provider)
+  "Do a web search using s command. Function modelled on the example from http://ergoemacs.org/emacs/elisp_universal_argument.html"
+  (interactive
+   (cond
+    ((equal current-prefix-arg nil) ; no C-u
+     (list (read-string "Enter query: ") ""))
+    (t ; any other combination of C-u
+     (list
+      (read-string "Enter query: " )
+      (concat " -p " (read-string "Enter provider: "))
+      ))))
+  ;; call s
+  (shell-command (concat "/home/raicevim/go/bin/s -b firefox.exe "
+                         (message
+                          (replace-regexp-in-string "(" "\\\\("
+                           (replace-regexp-in-string ")" "\\\\)" searchq)))
+                         provider))
+  )
+
+(defun web-search-current-region (beg end)
+  "Search the web for the string in the selected region"
+  (interactive (if (use-region-p)
+                   (list (region-beginning) (region-end))
+                 (list nil nil)))
+  (if (and beg end)
+      (web-search-using-s (buffer-substring beg end))
+    (message "Select region first!")))
+
+(global-unset-key (kbd "C-c s o"))
+
+(map! :leader
+      :desc "Search web"
+      "s o" #'web-search-using-s)
+
+(map! :leader
+      :desc "Search web (current region)"
+      "s O" #'web-search-current-region)
+
 
 
 ;;; Editing changes

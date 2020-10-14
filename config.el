@@ -265,3 +265,11 @@
   :bind
   ("C-c c n" .  indent-tools-hydra/body)
   )
+
+
+;;; Org-mode setup
+
+;; set the default org files location
+(setq org-directory "/Users/raikhan/OneDrive - Co-Operative Bulk Handling Ltd/org")
+(setq org-journal-file-type `weekly)
+(setq org-journal-file-header "#+TITLE: Weekly Journal\n#+STARTUP: folded")

@@ -176,7 +176,7 @@
       (concat " -p " (read-string "Enter provider: "))
       ))))
   ;; call s
-  (shell-command (concat "/home/raicevim/go/bin/s -b firefox.exe "
+  (shell-command (concat "/usr/local/bin/s "
                          (message
                           (replace-regexp-in-string "(" "\\\\("
                            (replace-regexp-in-string ")" "\\\\)" searchq)))

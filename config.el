@@ -267,6 +267,11 @@
   )
 
 
+;;; Python-mode settings
+
+(map! :map python-mode-map
+      "C-c C-n" #'flycheck-next-error)
+
 ;;; Org-mode setup
 
 ;; set the default org files location

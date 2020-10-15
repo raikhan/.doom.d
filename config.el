@@ -265,3 +265,9 @@
   :bind
   ("C-c c n" .  indent-tools-hydra/body)
   )
+
+
+;;; Python-mode settings
+
+(map! :map python-mode-map
+      "C-c C-n" #'flycheck-next-error)

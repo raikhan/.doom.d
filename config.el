@@ -99,7 +99,7 @@
   :config
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
-  (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+  (setq helm-split-window-inside-p           t ; open helm buffer inside current window, not occupy whole other window
         helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
         helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
         helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
@@ -142,13 +142,13 @@
 ;;   )
 ;;   :config
 ;;   (setq helm-multi-swoop-edit-save                                    t  ; Save buffer when helm-multi-swoop-edit complete
-;; 	helm-swoop-split-with-multiple-windows                      nil  ; If this value is t, split window inside the current window
-;; 	helm-swoop-split-direction             'split-window-vertically  ; Split direcion. 'split-window-vertically or 'split-window-horizontally
-;; 	helm-swoop-speed-or-color                                   nil  ; If nil, you can slightly boost invoke speed in exchange for text color
-;; 	helm-swoop-move-to-line-cycle                                 t  ; Go to the opposite side of line from the end or beginning of line
-;; 	helm-swoop-use-line-number-face                               t  ; Optional face for line numbers
-;; 	helm-swoop-use-fuzzy-match                                    t  ; Fuzzy matching
-;; 	)
+;;    helm-swoop-split-with-multiple-windows                      nil  ; If this value is t, split window inside the current window
+;;    helm-swoop-split-direction             'split-window-vertically  ; Split direcion. 'split-window-vertically or 'split-window-horizontally
+;;    helm-swoop-speed-or-color                                   nil  ; If nil, you can slightly boost invoke speed in exchange for text color
+;;    helm-swoop-move-to-line-cycle                                 t  ; Go to the opposite side of line from the end or beginning of line
+;;    helm-swoop-use-line-number-face                               t  ; Optional face for line numbers
+;;    helm-swoop-use-fuzzy-match                                    t  ; Fuzzy matching
+;;    )
 ;; )
 
 (use-package! swiper
@@ -176,7 +176,7 @@
       (concat " -p " (read-string "Enter provider: "))
       ))))
   ;; call s
-  (shell-command (concat "/home/raicevim/go/bin/s -b firefox.exe "
+  (shell-command (concat "/usr/local/bin/s "
                          (message
                           (replace-regexp-in-string "(" "\\\\("
                            (replace-regexp-in-string ")" "\\\\)" searchq)))
@@ -271,3 +271,10 @@
 
 (map! :map python-mode-map
       "C-c C-n" #'flycheck-next-error)
+
+;;; Org-mode setup
+
+;; set the default org files location
+(setq org-directory "/Users/raikhan/OneDrive - Co-Operative Bulk Handling Ltd/org")
+(setq org-journal-file-type `weekly)
+(setq org-journal-file-header "#+TITLE: Weekly Journal\n#+STARTUP: folded")

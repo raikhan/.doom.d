@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: numpy-style docstring
+# uuid:
+# key: num
+# condition: t
+# --
+"""${1:short_desc}
+
+${2:long_desc}
+
+Parameters
+----------
+${3:params}
+
+Returns
+-------
+${4:returns}
+
+"""

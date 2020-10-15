@@ -272,9 +272,11 @@
 (map! :map python-mode-map
       "C-c C-n" #'flycheck-next-error)
 
+(add-hook! python-mode #'rainbow-delimiters-mode)
+
 ;;; Org-mode setup
 
 ;; set the default org files location
-(setq org-directory "/Users/raikhan/OneDrive - Co-Operative Bulk Handling Ltd/org")
+(setq org-directory "/mnt/c/Users/raicevim/OneDrive - Co-Operative Bulk Handling Ltd/org/")
 (setq org-journal-file-type `weekly)
 (setq org-journal-file-header "#+TITLE: Weekly Journal\n#+STARTUP: folded")

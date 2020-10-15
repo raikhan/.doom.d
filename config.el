@@ -272,6 +272,8 @@
 (map! :map python-mode-map
       "C-c C-n" #'flycheck-next-error)
 
+(add-hook! python-mode #'rainbow-delimiters-mode)
+
 ;;; Org-mode setup
 
 ;; set the default org files location

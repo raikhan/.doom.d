@@ -280,3 +280,12 @@
 (setq org-directory "/Users/raikhan/OneDrive - Co-Operative Bulk Handling Ltd/org")
 (setq org-journal-file-type `weekly)
 (setq org-journal-file-header "#+TITLE: Weekly Journal\n#+STARTUP: folded")
+
+;;; ESS for R settings
+
+(map! :map ess-mode-map
+      "C-c >" "%>%")
+(map! :map ess-mode-map
+      "M--" "<-")
+
+(add-hook! python-mode #'rainbow-delimiters-mode)

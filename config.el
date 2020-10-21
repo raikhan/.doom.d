@@ -283,9 +283,16 @@
 
 ;;; ESS for R settings
 
+(defun R-key-chord-mode ()
+  (key-chord-mode 1)
+  (key-chord-define-local ">>" "%>%")
+)
+(add-hook! ess-mode (R-key-chord-mode))
+(add-hook! inferior-ess-mode (R-key-chord-mode))
+
 (map! :map ess-mode-map
-      "C-c >" "%>%")
-(map! :map ess-mode-map
+      "M--" "<-")
+(map! :map inferior-ess-mode-map
       "M--" "<-")
 
 (add-hook! python-mode #'rainbow-delimiters-mode)

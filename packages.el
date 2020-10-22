@@ -52,3 +52,4 @@
 
 ;; (package! helm-swoop)
 (package! indent-tools)
+(package! key-chord)

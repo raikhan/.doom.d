@@ -286,6 +286,7 @@
 (defun R-key-chord-mode ()
   (key-chord-mode 1)
   (key-chord-define-local ">>" "%>%")
+  (key-chord-define-local "<<" "%<>%")
 )
 (add-hook! ess-mode (R-key-chord-mode))
 (add-hook! inferior-ess-mode (R-key-chord-mode))

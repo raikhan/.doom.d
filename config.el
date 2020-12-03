@@ -89,7 +89,7 @@
 ;; Helm
 (use-package! helm
   :bind (("C-c SPC" . helm-all-mark-rings)          ; helm menu for mark ring
-         ("C-x b" . helm-mini)
+         ;; ("C-x b" . helm-mini)
          ("M-y" . helm-show-kill-ring)
          :map helm-map
          ("<tab>" . helm-execute-persistent-action) ; rebind tab to run persistent action
